@@ -292,7 +292,7 @@ namespace Tesseract.Interop
 
         [RuntimeDllImport(Constants.TesseractDllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "TessPDFRendererCreate")]
         IntPtr PDFRendererCreate(string outputbase, IntPtr datadir, int textonly);
-        
+
         [RuntimeDllImport(Constants.TesseractDllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "TessUnlvRendererCreate")]
         IntPtr UnlvRendererCreate(string outputbase);
 
@@ -394,7 +394,7 @@ namespace Tesseract.Interop
             IntPtr txtHandle = Native.BaseApiGetHOCRTextInternal(handle, pageNum);
             if (txtHandle != IntPtr.Zero) {
                 var result = MarshalHelper.PtrToString(txtHandle, Encoding.UTF8);
-                TessApi.Native.DeleteText(txtHandle);
+                Native.DeleteText(txtHandle);
                 return htmlBeginTag + result + htmlEndTag;
             } else {
                 return null;
@@ -407,7 +407,7 @@ namespace Tesseract.Interop
             IntPtr txtHandle = Native.BaseApiGetHOCRTextInternal(handle, pageNum);
             if (txtHandle != IntPtr.Zero) {
                 var result = MarshalHelper.PtrToString(txtHandle, Encoding.UTF8);
-                TessApi.Native.DeleteText(txtHandle);
+                Native.DeleteText(txtHandle);
                 return xhtmlBeginTag + result + xhtmlEndTag;
             } else {
                 return null;
@@ -419,7 +419,7 @@ namespace Tesseract.Interop
             IntPtr txtHandle = Native.BaseApiGetAltoTextInternal(handle, pageNum);
             if (txtHandle != IntPtr.Zero) {
                 var result = MarshalHelper.PtrToString(txtHandle, Encoding.UTF8);
-                TessApi.Native.DeleteText(txtHandle);
+                Native.DeleteText(txtHandle);
                 return result;
             } else {
                 return null;
@@ -431,7 +431,7 @@ namespace Tesseract.Interop
             IntPtr txtHandle = Native.BaseApiGetTsvTextInternal(handle, pageNum);
             if (txtHandle != IntPtr.Zero) {
                 var result = MarshalHelper.PtrToString(txtHandle, Encoding.UTF8);
-                TessApi.Native.DeleteText(txtHandle);
+                Native.DeleteText(txtHandle);
                 return result;
             } else {
                 return null;
@@ -444,7 +444,7 @@ namespace Tesseract.Interop
             if (txtHandle != IntPtr.Zero)
             {
                 var result = MarshalHelper.PtrToString(txtHandle, Encoding.UTF8);
-                TessApi.Native.DeleteText(txtHandle);
+                Native.DeleteText(txtHandle);
                 return result;
             }
             else
@@ -459,7 +459,7 @@ namespace Tesseract.Interop
             if (txtHandle != IntPtr.Zero)
             {
                 var result = MarshalHelper.PtrToString(txtHandle, Encoding.UTF8);
-                TessApi.Native.DeleteText(txtHandle);
+                Native.DeleteText(txtHandle);
                 return result;
             }
             else
@@ -474,7 +474,7 @@ namespace Tesseract.Interop
             if (txtHandle != IntPtr.Zero)
             {
                 var result = MarshalHelper.PtrToString(txtHandle, Encoding.UTF8);
-                TessApi.Native.DeleteText(txtHandle);
+                Native.DeleteText(txtHandle);
                 return result;
             }
             else
@@ -489,7 +489,7 @@ namespace Tesseract.Interop
             if (txtHandle != IntPtr.Zero)
             {
                 var result = MarshalHelper.PtrToString(txtHandle, Encoding.UTF8);
-                TessApi.Native.DeleteText(txtHandle);
+                Native.DeleteText(txtHandle);
                 return result;
             }
             else
@@ -513,7 +513,7 @@ namespace Tesseract.Interop
             IntPtr txtHandle = Native.BaseAPIGetUTF8TextInternal(handle);
             if (txtHandle != IntPtr.Zero) {
                 var result = MarshalHelper.PtrToString(txtHandle, Encoding.UTF8);
-                TessApi.Native.DeleteText(txtHandle);
+                Native.DeleteText(txtHandle);
                 return result;
             } else {
                 return null;
@@ -533,7 +533,7 @@ namespace Tesseract.Interop
             string[] varValues = new string[initialValues.Count];
             int i = 0;
             foreach (var pair in initialValues) {
-                Guard.Require("initialValues", !String.IsNullOrEmpty(pair.Key), "Variable must have a name.");
+                Guard.Require("initialValues", !string.IsNullOrEmpty(pair.Key), "Variable must have a name.");
 
                 Guard.Require("initialValues", pair.Value != null, "Variable '{0}': The type '{1}' is not supported.", pair.Key, pair.Value.GetType());
                 varNames[i] = pair.Key;
@@ -542,7 +542,7 @@ namespace Tesseract.Interop
                     varValues[i] = varValue;
                 } else {
                     throw new ArgumentException(
-                        String.Format("Variable '{0}': The type '{1}' is not supported.", pair.Key, pair.Value.GetType()),
+                        string.Format("Variable '{0}': The type '{1}' is not supported.", pair.Key, pair.Value.GetType()),
                         "initialValues"
                     );
                 }
@@ -605,7 +605,7 @@ namespace Tesseract.Interop
             IntPtr txtHandle = Native.ResultIteratorGetUTF8TextInternal(handle, level);
             if (txtHandle != IntPtr.Zero) {
                 var result = MarshalHelper.PtrToString(txtHandle, Encoding.UTF8);
-                TessApi.Native.DeleteText(txtHandle);
+                Native.DeleteText(txtHandle);
                 return result;
             } else {
                 return null;

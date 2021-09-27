@@ -16,15 +16,15 @@ namespace Tesseract
         public const int DefaultReduction = 4; // Sweep part; 4 is good
         public const float DefaultRange = 7.0F;
         public const float DefaultDelta = 1.0F;
-        
-        private int reduction;
-        private float range;
-        private float delta;
+
+        private readonly int reduction;
+        private readonly float range;
+        private readonly float delta;
 
         #endregion
 
         #region Factory Methods + Constructor
-        
+
         public ScewSweep(int reduction = DefaultReduction, float range = DefaultRange, float delta = DefaultDelta)
         {
             this.reduction = reduction;
@@ -40,7 +40,7 @@ namespace Tesseract
         {
             get { return reduction; }
         }
-        
+
         public float Range
         {
             get { return range; }

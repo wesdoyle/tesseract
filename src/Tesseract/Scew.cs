@@ -6,8 +6,8 @@ namespace Tesseract
 {
     public struct Scew
     {
-        private float angle;
-        private float confidence;
+        private readonly float angle;
+        private readonly float confidence;
 
         public Scew(float angle, float confidence)
         {
@@ -30,7 +30,7 @@ namespace Tesseract
 
         public override string ToString()
         {
-            return String.Format("Scew: {0} [conf: {1}]", Angle, Confidence);
+            return string.Format("Scew: {0} [conf: {1}]", Angle, Confidence);
         }
 
         #endregion
@@ -43,7 +43,7 @@ namespace Tesseract
 
         public bool Equals(Scew other)
         {
-            return this.confidence == other.confidence && this.angle == other.angle;
+            return confidence == other.confidence && angle == other.angle;
         }
 
         public override int GetHashCode()
@@ -66,6 +66,6 @@ namespace Tesseract
             return !(lhs == rhs);
         }
         #endregion
-        
+
     }
 }

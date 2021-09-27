@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
 
 namespace Tesseract
@@ -15,7 +14,7 @@ namespace Tesseract
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
         public static byte GetDataBit(byte* data, int index)
-		{			
+		{
 			return (byte)((*(data + (index >> 3)) >> (index & 0x7)) & 1);
 		}
 
@@ -23,7 +22,7 @@ namespace Tesseract
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
         public static void SetDataBit(byte* data, int index, byte value)
-		{			
+		{
 			byte* wordPtr = data + (index >> 3);
             *wordPtr &= (byte)~(0x80 >> (index & 7)); 			// clear bit, note first pixel in the byte is most significant (1000 0000)
             *wordPtr |= (byte)((value & 1) << (7 - (index & 7)));		// set bit, if value is 1
@@ -41,7 +40,7 @@ namespace Tesseract
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
 		public static void SetDataQBit(byte* data, int index, byte value)
-		{			
+		{
 			byte* wordPtr = data + (index >> 1);
             *wordPtr &= (byte)~(0xF0 >> (4 * (index & 1))); // clears qbit located at index, note like bit the qbit corresponding to the first pixel is the most significant (0xF0)
             *wordPtr |= (byte)((value & 0x0F) << (4 - (4 * (index & 1)))); // applys qbit to n
@@ -51,7 +50,7 @@ namespace Tesseract
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
 		public static byte GetDataByte(byte* data, int index)
-		{			
+		{
 			return *(data + index);
 		}
 
@@ -59,7 +58,7 @@ namespace Tesseract
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
 		public static void SetDataByte(byte* data, int index, byte value)
-		{			
+		{
 			*(data + index) = value;
 		}
 
@@ -67,7 +66,7 @@ namespace Tesseract
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
 		public static ushort GetDataUInt16(ushort* data, int index)
-		{			
+		{
 			return *(data + index);
 		}
 
@@ -75,7 +74,7 @@ namespace Tesseract
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
 		public static void SetDataUInt16(ushort* data, int index, ushort value)
-		{			
+		{
 			*(data + index) = value;
 		}
 
@@ -83,7 +82,7 @@ namespace Tesseract
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
 		public static uint GetDataUInt32(uint* data, int index)
-		{			
+		{
 			return *(data + index);
 		}
 
@@ -91,7 +90,7 @@ namespace Tesseract
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
 		public static void SetDataUInt32(uint* data, int index, uint value)
-		{			
+		{
 			*(data + index) = value;
         }
 

@@ -11,7 +11,7 @@ namespace Tesseract.Interop
     /// </summary>
     /// <remarks>
     /// Please note this is only public for technical reasons (you can't proxy a internal interface).
-    /// It should be considered an internal interface and is NOT part of the public api and may have 
+    /// It should be considered an internal interface and is NOT part of the public api and may have
     /// breaking changes between releases.
     /// </remarks>
     public interface ILeptonicaApiSignatures
@@ -38,7 +38,7 @@ namespace Tesseract.Interop
 
         [RuntimeDllImport(Constants.LeptonicaDllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "pixaGetCount")]
         int pixaGetCount(HandleRef pixa);
-       
+
         [RuntimeDllImport(Constants.LeptonicaDllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "pixaDestroy")]
         void pixaDestroy(ref IntPtr pix);
 
@@ -51,7 +51,7 @@ namespace Tesseract.Interop
 
         [RuntimeDllImport(Constants.LeptonicaDllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "pixClone")]
         unsafe IntPtr pixClone(HandleRef pix);
-        
+
         [RuntimeDllImport(Constants.LeptonicaDllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "pixDestroy")]
         void pixDestroy(ref IntPtr pix);
 
@@ -257,7 +257,7 @@ namespace Tesseract.Interop
         IntPtr pixcmapCreateRandom(int depth, int hasBlack, int hasWhite);
 
         /// <summary>
-        /// Creates a new colormap of the specified <paramref name="depth"/> with equally spaced gray color values. 
+        /// Creates a new colormap of the specified <paramref name="depth"/> with equally spaced gray color values.
         /// </summary>
         /// <param name="depth">The depth of the pix in bpp, can be 2, 4, or 8</param>
         /// <param name="levels">The number of levels (must be between 2 and 2^<paramref name="depth"/></param>
@@ -379,8 +379,8 @@ namespace Tesseract.Interop
         int pixcmapAddBlackOrWhite(HandleRef cmap, int color, out int index);
 
         /// <summary>
-        /// Sets the darkest color in the colormap to black, if <paramref name="setBlack"/> is 1. 
-        /// Sets the lightest color in the colormap to white if <paramref name="setWhite"/> is 1. 
+        /// Sets the darkest color in the colormap to black, if <paramref name="setBlack"/> is 1.
+        /// Sets the lightest color in the colormap to white if <paramref name="setWhite"/> is 1.
         /// </summary>
         /// <param name="cmap">The pointer to the colormap instance.</param>
         /// <param name="setBlack">0 for no operation; 1 to set darket color to black</param>
@@ -501,7 +501,7 @@ namespace Tesseract.Interop
         [RuntimeDllImport(Constants.LeptonicaDllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "pixcmapDeserializeFromMemory")]
         IntPtr pixcmapDeserializeFromMemory(HandleRef colorData, int colorCount, int colorDataLength);
 
-        // colormap transformations 
+        // colormap transformations
 
         [RuntimeDllImport(Constants.LeptonicaDllName, CallingConvention = CallingConvention.Cdecl, EntryPoint = "pixcmapGammaTRC")]
         int pixcmapGammaTRC(HandleRef cmap, float gamma, int minVal, int maxVal);

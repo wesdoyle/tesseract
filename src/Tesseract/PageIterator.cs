@@ -136,7 +136,7 @@ namespace Tesseract
         }
 
         /// <summary>
-        /// Gets the bounding rectangle of the current element at the given level. 
+        /// Gets the bounding rectangle of the current element at the given level.
         /// </summary>
         /// <param name="level"></param>
         /// <param name="bounds"></param>

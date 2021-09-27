@@ -1,42 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Tesseract.Internal;
 
-namespace Tesseract
-{
+namespace Tesseract {
     /// <summary>
     /// Aggregate result renderer.
     /// </summary>
-    public class AggregateResultRenderer : DisposableBase, IResultRenderer
-    {
+    public class AggregateResultRenderer : DisposableBase, IResultRenderer {
         /// <summary>
         /// Ensures the renderer's EndDocument when disposed off.
         /// </summary>
-        private class EndDocumentOnDispose : DisposableBase
-        {
+        private class EndDocumentOnDispose : DisposableBase {
             private readonly AggregateResultRenderer _renderer;
             private List<IDisposable> _children;
 
-            public EndDocumentOnDispose(AggregateResultRenderer renderer, IEnumerable<IDisposable> children)
-            {
+            public EndDocumentOnDispose(AggregateResultRenderer renderer, IEnumerable<IDisposable> children) {
                 _renderer = renderer;
                 _children = new List<IDisposable>(children);
             }
 
-            protected override void Dispose(bool disposing)
-            {
-                if (disposing) {
-                    Guard.Verify(_renderer._currentDocumentHandle == this, "Expected the Result Render's active document to be this document.");
+            protected override void Dispose(bool disposing) {
+                if (!disposing) return;
 
-                    // End the renderer
-                    foreach (var child in _children) {
-                        child.Dispose();
-                    }
-                    _children = null;
+                Guard.Verify(_renderer._currentDocumentHandle == this, "Expected the Result Render's active document to be this document.");
 
-                    // reset current handle
-                    _renderer._currentDocumentHandle = null;
+                // End the renderer
+                foreach (var child in _children) {
+                    child.Dispose();
                 }
+                _children = null;
+
+                // reset current handle
+                _renderer._currentDocumentHandle = null;
             }
         }
 
@@ -49,55 +45,37 @@ namespace Tesseract
         /// </summary>
         /// <param name="resultRenderers">The child result renderers.</param>
         public AggregateResultRenderer(params IResultRenderer[] resultRenderers)
-            : this((IEnumerable<IResultRenderer>)resultRenderers)
-        {
-        }
+            : this((IEnumerable<IResultRenderer>)resultRenderers) { }
 
         /// <summary>
         /// Create a new aggregate result renderer with the specified child result renderers.
         /// </summary>
         /// <param name="resultRenderers">The child result renderers.</param>
-        public AggregateResultRenderer(IEnumerable<IResultRenderer> resultRenderers)
-        {
+        public AggregateResultRenderer(IEnumerable<IResultRenderer> resultRenderers) {
             Guard.RequireNotNull("resultRenderers", resultRenderers);
-
             _resultRenderers = new List<IResultRenderer>(resultRenderers);
         }
 
         /// <summary>
         /// Get's the current page number.
         /// </summary>
-        public int PageNumber
-        {
-            get { return _pageNumber; }
-        }
+        public int PageNumber => _pageNumber;
 
         /// <summary>
         /// Get's the child result renderers.
         /// </summary>
-        public IEnumerable<IResultRenderer> ResultRenderers
-        {
-            get { return _resultRenderers; }
-        }
+        public IEnumerable<IResultRenderer> ResultRenderers => _resultRenderers;
 
         /// <summary>
         /// Adds a page to each of the child result renderers.
         /// </summary>
         /// <param name="page"></param>
         /// <returns></returns>
-        public bool AddPage(Page page)
-        {
+        public bool AddPage(Page page) {
             Guard.RequireNotNull("page", page);
             VerifyNotDisposed();
-
             _pageNumber++;
-            foreach (var renderer in ResultRenderers) {
-                if (!renderer.AddPage(page)) {
-                    return false;
-                }
-            }
-
-            return true;
+            return ResultRenderers.All(renderer => renderer.AddPage(page));
         }
 
         /// <summary>
@@ -105,22 +83,18 @@ namespace Tesseract
         /// </summary>
         /// <param name="title">The title of the document.</param>
         /// <returns></returns>
-        public IDisposable BeginDocument(string title)
-        {
+        public IDisposable BeginDocument(string title) {
             Guard.RequireNotNull("title", title);
             VerifyNotDisposed();
             Guard.Verify(_currentDocumentHandle == null, "Cannot begin document \"{0}\" as another document is currently being processed which must be dispose off first.", title);
 
-            // Reset the page numer
+            // Reset the page number
             _pageNumber = -1;
 
             // Begin the document on each child renderer.
-            List<IDisposable> children = new List<IDisposable>();
+            var children = new List<IDisposable>();
             try {
-                foreach (var renderer in ResultRenderers) {
-                    children.Add(renderer.BeginDocument(title));
-                }
-
+                children.AddRange(ResultRenderers.Select(renderer => renderer.BeginDocument(title)));
                 _currentDocumentHandle = new EndDocumentOnDispose(this, children);
                 return _currentDocumentHandle;
             } catch (Exception error) {
@@ -132,21 +106,18 @@ namespace Tesseract
                         Logger.TraceError("Failed to dispose of child document {0}: {1}", child, disposalError.Message);
                     }
                 }
-
-                throw error;
+                throw;
             }
         }
 
-        protected override void Dispose(bool disposing)
-        {
+        protected override void Dispose(bool disposing) {
             try {
-                if (disposing) {
-                    // Ensure that if the renderer has an active document when disposed it too is disposed off.
-                    if (_currentDocumentHandle != null) {
-                        _currentDocumentHandle.Dispose();
-                        _currentDocumentHandle = null;
-                    }
-                }
+                if (!disposing) return;
+                // Ensure that if the renderer has an active document when disposed it too is disposed off.
+                if (_currentDocumentHandle == null) return;
+
+                _currentDocumentHandle.Dispose();
+                _currentDocumentHandle = null;
             } finally {
                 // dispose of result renderers
                 foreach (var renderer in ResultRenderers) {

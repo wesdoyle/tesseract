@@ -32,7 +32,7 @@ namespace Tesseract
                 // transfer data
                 pixData = pix.GetData();
                 imgData = img.LockBits(new Rectangle(0, 0, img.Width, img.Height), ImageLockMode.WriteOnly, pixelFormat);
-                
+
                 if (depth == 32) {
                     TransferData32(pixData, imgData, includeAlpha ? 0 : 255);
                 } else if (depth == 16) {
@@ -143,7 +143,7 @@ namespace Tesseract
             } else {
                 for (int i = 0; i < maxColors; i++) {
                     var value = (byte)(i * 255 / lastColor);
-                    pallete.Entries[i] = SD.Color.FromArgb(value, value, value);
+                    pallete.Entries[i] = Color.FromArgb(value, value, value);
                 }
             }
             // This is required to force the palette to update!
@@ -160,7 +160,7 @@ namespace Tesseract
                 case 8: return PixelFormat.Format8bppIndexed;
                 case 16: return PixelFormat.Format16bppGrayScale;
                 case 32: return PixelFormat.Format32bppArgb;
-                default: throw new InvalidOperationException(String.Format("Pix depth {0} is not supported.", pix.Depth));
+                default: throw new InvalidOperationException(string.Format("Pix depth {0} is not supported.", pix.Depth));
             }
         }
     }

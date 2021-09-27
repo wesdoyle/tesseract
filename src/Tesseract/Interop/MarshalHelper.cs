@@ -19,11 +19,11 @@ namespace Tesseract.Interop
             return handle;
         }
 
-    	        
+
         public static string PtrToString(IntPtr handle, Encoding encoding)
         {
             var length = StrLength(handle);
-            return new String((sbyte*)handle.ToPointer(), 0, length, encoding);
+            return new string((sbyte*)handle.ToPointer(), 0, length, encoding);
         }
 
         /// <summary>

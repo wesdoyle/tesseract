@@ -7,36 +7,36 @@ namespace Tesseract
 {
 	public unsafe class PixData
 	{
-		public Pix Pix { get; private set; }
+		public Pix Pix { get; }
 
-		
+
 		internal PixData(Pix pix)
 		{		
             Pix = pix;
-            Data = Interop.LeptonicaApi.Native.pixGetData(Pix.Handle);
-            WordsPerLine = Interop.LeptonicaApi.Native.pixGetWpl(Pix.Handle);
+            Data = LeptonicaApi.Native.pixGetData(Pix.Handle);
+            WordsPerLine = LeptonicaApi.Native.pixGetWpl(Pix.Handle);
 		}
-		
+
 		/// <summary>
 		/// Pointer to the data.
 		/// </summary>
-		public IntPtr Data { get; private set; }
-		
+		public IntPtr Data { get; }
+
 		/// <summary>
-		/// Number of 32-bit words per line. 
+		/// Number of 32-bit words per line.
 		/// </summary>
-		public int WordsPerLine { get; private set; }
+		public int WordsPerLine { get; }
 
         /// <summary>
         /// Swaps the bytes on little-endian platforms within a word; bytes 0 and 3 swapped, and bytes `1 and 2 are swapped.
         /// </summary>
         /// <remarks>
-        /// This is required for little-endians in situations where we convert from a serialized byte order that is in raster order, 
+        /// This is required for little-endians in situations where we convert from a serialized byte order that is in raster order,
         /// as one typically has in file formats, to one with MSB-to-the-left in each 32-bit word, or v.v. See <seealso href="http://www.leptonica.com/byte-addressing.html"/>
         /// </remarks>
         public void EndianByteSwap()
         {
-            Interop.LeptonicaApi.Native.pixEndianByteSwap(Pix.Handle);
+            LeptonicaApi.Native.pixEndianByteSwap(Pix.Handle);
         }
 
 #if Net45
@@ -144,7 +144,7 @@ namespace Tesseract
             	return *((byte*)((uint)((byte*)data + index) ^ 3));
 			}
 			// Architecture types that are NOT little edian are not currently supported
-            //return *((byte*)data + index);  
+            //return *((byte*)data + index);
 		}
 
 
@@ -227,6 +227,6 @@ namespace Tesseract
 		public static void SetDataFourByte(uint* data, int index, uint value)
 		{
 			*(data + index) = value;			
-		}		
+		}
 	}
 }

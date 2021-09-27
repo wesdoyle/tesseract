@@ -8,10 +8,10 @@ namespace Tesseract
     [StructLayout(LayoutKind.Sequential, Pack=1)]
 	public struct PixColor : IEquatable<PixColor>
     {
-        private byte red;
-        private byte blue;
-        private byte green;
-        private byte alpha;
+        private readonly byte red;
+        private readonly byte blue;
+        private readonly byte green;
+        private readonly byte alpha;
 
         public PixColor(byte red, byte green, byte blue, byte alpha = 255)
         {
@@ -70,12 +70,12 @@ namespace Tesseract
 		{
 			return (obj is PixColor) && Equals((PixColor)obj);
 		}
-        
+
 		public bool Equals(PixColor other)
 		{
-			return this.red == other.red && this.blue == other.blue && this.green == other.green && this.alpha == other.alpha;
+			return red == other.red && blue == other.blue && green == other.green && alpha == other.alpha;
 		}
-        
+
 		public override int GetHashCode()
 		{
 			int hashCode = 0;
@@ -87,12 +87,12 @@ namespace Tesseract
 			}
 			return hashCode;
 		}
-        
+
 		public static bool operator ==(PixColor lhs, PixColor rhs)
 		{
 			return lhs.Equals(rhs);
 		}
-        
+
 		public static bool operator !=(PixColor lhs, PixColor rhs)
 		{
 			return !(lhs == rhs);
@@ -101,7 +101,7 @@ namespace Tesseract
 
         public override string ToString()
         {
-            return String.Format("Color(0x{0:X})", ToRGBA());
+            return string.Format("Color(0x{0:X})", ToRGBA());
         }
 
     }

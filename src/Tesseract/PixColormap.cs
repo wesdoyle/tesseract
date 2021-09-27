@@ -9,7 +9,7 @@ namespace Tesseract
     /// Represents a colormap.
     /// </summary>
     /// <remarks>
-    /// Once the colormap is assigned to a pix it is owned by that pix and will be disposed off automatically 
+    /// Once the colormap is assigned to a pix it is owned by that pix and will be disposed off automatically
     /// when the pix is disposed off.
     /// </remarks>
     public sealed class PixColormap : IDisposable
@@ -33,7 +33,7 @@ namespace Tesseract
             }
             return new PixColormap(handle);
         }
-        
+
         public static PixColormap CreateLinear(int depth, int levels)
         {
             if (!(depth == 1 || depth == 2 || depth == 4 || depth == 8)) {
@@ -122,7 +122,7 @@ namespace Tesseract
         {
             if (Interop.LeptonicaApi.Native.pixcmapClear(handle) != 0)
             {
-                throw new InvalidOperationException("Failed to clear color map.");                
+                throw new InvalidOperationException("Failed to clear color map.");
             }
         }
 
@@ -142,7 +142,7 @@ namespace Tesseract
             {
                 if (Interop.LeptonicaApi.Native.pixcmapResetColor(handle, index, value.Red, value.Green, value.Blue) != 0)
                 {
-                    throw new InvalidOperationException("Failed to reset color.");                    
+                    throw new InvalidOperationException("Failed to reset color.");
                 }
             }
         }
@@ -151,7 +151,7 @@ namespace Tesseract
         {
         	IntPtr tmpHandle = Handle.Handle;
             Interop.LeptonicaApi.Native.pixcmapDestroy(ref tmpHandle);
-            this.handle = new HandleRef(this, IntPtr.Zero);
+            handle = new HandleRef(this, IntPtr.Zero);
         }
     }
 }

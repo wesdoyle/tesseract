@@ -11,10 +11,10 @@ namespace Tesseract
 
         #region Fields
 
-        private int x;
-        private int y;
-        private int width;
-        private int height;
+        private readonly int x;
+        private readonly int y;
+        private readonly int width;
+        private readonly int height;
 
         #endregion
 
@@ -34,7 +34,7 @@ namespace Tesseract
         }
 
         #endregion
-        
+
         #region Properties
 
         public int X1
@@ -77,7 +77,7 @@ namespace Tesseract
 
         public bool Equals(Rect other)
         {
-            return this.x == other.x && this.y == other.y && this.width == other.width && this.height == other.height;
+            return x == other.x && y == other.y && width == other.width && height == other.height;
         }
 
         public override int GetHashCode()
@@ -102,16 +102,16 @@ namespace Tesseract
             return !(lhs == rhs);
         }
         #endregion
-        
+
         #region ToString
-        
+
 		public override string ToString()
 		{
 			return string.Format("[Rect X={0}, Y={1}, Width={2}, Height={3}]", x, y, width, height);
 		}
 
-        
+
         #endregion
-        
+
     }
 }

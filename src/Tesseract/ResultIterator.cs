@@ -19,20 +19,20 @@ namespace Tesseract
             if (handle.Handle == IntPtr.Zero)
                 return 0f;
 
-            return Interop.TessApi.Native.ResultIteratorGetConfidence(handle, level);
+            return TessApi.Native.ResultIteratorGetConfidence(handle, level);
         }
 
         public string GetText(PageIteratorLevel level)
         {
             VerifyNotDisposed();
             if (handle.Handle == IntPtr.Zero) {
-                return String.Empty;
+                return string.Empty;
             }
 
-            return Interop.TessApi.ResultIteratorGetUTF8Text(handle, level);
+            return TessApi.ResultIteratorGetUTF8Text(handle, level);
         }
-        
-        private Dictionary<int, FontInfo> _fontInfoCache = new Dictionary<int, FontInfo>();
+
+        private readonly Dictionary<int, FontInfo> _fontInfoCache = new Dictionary<int, FontInfo>();
         public FontAttributes GetWordFontAttributes() {
             VerifyNotDisposed();
             if (handle.Handle == IntPtr.Zero) {
@@ -45,7 +45,7 @@ namespace Tesseract
             // per docs (ltrresultiterator.h:104 as of 4897796 in github:tesseract-ocr/tesseract)
             // this return value points to an internal table and should not be deleted.
             IntPtr nameHandle =
-                Interop.TessApi.Native.ResultIteratorWordFontAttributes(
+                TessApi.Native.ResultIteratorWordFontAttributes(
                     handle,
                     out isBold, out isItalic, out isUnderlined,
                     out isMonospace, out isSerif, out isSmallCaps,
@@ -73,7 +73,7 @@ namespace Tesseract
                 return null;
             }
 
-            return Interop.TessApi.ResultIteratorWordRecognitionLanguage(handle);
+            return TessApi.ResultIteratorWordRecognitionLanguage(handle);
         }
 
         public bool GetWordIsFromDictionary()
@@ -83,7 +83,7 @@ namespace Tesseract
                 return false;
             }
 
-            return Interop.TessApi.Native.ResultIteratorWordIsFromDictionary(handle);
+            return TessApi.Native.ResultIteratorWordIsFromDictionary(handle);
         }
 
         public bool GetWordIsNumeric()
@@ -93,7 +93,7 @@ namespace Tesseract
                 return false;
             }
 
-            return Interop.TessApi.Native.ResultIteratorWordIsNumeric(handle);
+            return TessApi.Native.ResultIteratorWordIsNumeric(handle);
         }
 
         public bool GetSymbolIsSuperscript()
@@ -103,7 +103,7 @@ namespace Tesseract
                 return false;
             }
 
-            return Interop.TessApi.Native.ResultIteratorSymbolIsSuperscript(handle);
+            return TessApi.Native.ResultIteratorSymbolIsSuperscript(handle);
         }
 
         public bool GetSymbolIsSubscript()
@@ -113,7 +113,7 @@ namespace Tesseract
                 return false;
             }
 
-            return Interop.TessApi.Native.ResultIteratorSymbolIsSubscript(handle);
+            return TessApi.Native.ResultIteratorSymbolIsSubscript(handle);
         }
 
         public bool GetSymbolIsDropcap()
@@ -123,7 +123,7 @@ namespace Tesseract
                 return false;
             }
 
-            return Interop.TessApi.Native.ResultIteratorSymbolIsDropcap(handle);
+            return TessApi.Native.ResultIteratorSymbolIsDropcap(handle);
         }
 
         /// <summary>
@@ -133,7 +133,7 @@ namespace Tesseract
         /// <returns>an instance of a Choice Iterator</returns>
         public ChoiceIterator GetChoiceIterator()
         {
-            var choiceIteratorHandle = Interop.TessApi.Native.ResultIteratorGetChoiceIterator(this.handle);
+            var choiceIteratorHandle = TessApi.Native.ResultIteratorGetChoiceIterator(handle);
             if (choiceIteratorHandle == IntPtr.Zero)
                 return null;
             return new ChoiceIterator(choiceIteratorHandle);

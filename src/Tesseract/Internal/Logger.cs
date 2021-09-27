@@ -10,7 +10,7 @@ namespace Tesseract.Internal
     static class Logger
     {
 		readonly static TraceSource trace = new TraceSource("Tesseract");
-        
+
 
         public static void TraceInformation(string format, params object[] args)
         {

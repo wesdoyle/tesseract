@@ -97,9 +97,9 @@ namespace InteropDotNet
                 },
                 new object[]
                 {
-                    importAttribute.CharSet, 
-                    importAttribute.BestFitMapping, 
-                    importAttribute.ThrowOnUnmappableChar, 
+                    importAttribute.CharSet,
+                    importAttribute.BestFitMapping,
+                    importAttribute.ThrowOnUnmappableChar,
                     importAttribute.SetLastError
                 });
             delegateBuilder.SetCustomAttribute(attributeBuilder);
@@ -243,7 +243,7 @@ namespace InteropDotNet
                 ilGen.Emit(OpCodes.Ldloc_1);
                 // Load methodDelegate token
                 ilGen.Emit(OpCodes.Ldtoken, method.DelegateType);
-                // Call typeof(methodDelegate)                                
+                // Call typeof(methodDelegate)
                 ilGen.Emit(OpCodes.Call, typeof(Type).GetMethod("GetTypeFromHandle"));
                 // Call Marshal.GetDelegateForFunctionPointer(methodHandle, typeof(methodDelegate))
                 ilGen.Emit(OpCodes.Call, typeof(Marshal).GetMethod("GetDelegateForFunctionPointer",
@@ -333,9 +333,9 @@ namespace InteropDotNet
                 Attributes = ParameterAttributes.HasDefault;
             }
 
-            public Type Type { get; private set; }
-            public string Name { get; private set; }
-            public ParameterAttributes Attributes { get; private set; }
+            public Type Type { get; }
+            public string Name { get; }
+            public ParameterAttributes Attributes { get; }
         }
 
         private enum InfoArrayMode

@@ -4,12 +4,11 @@ using System.Text;
 
 namespace Tesseract
 {
-    public enum PageIteratorLevel : int
-    {
+    public enum PageIteratorLevel {
         Block,
-        Para, 
-        TextLine, 
-        Word, 
+        Para,
+        TextLine,
+        Word,
         Symbol
     }
 }

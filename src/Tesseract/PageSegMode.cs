@@ -7,8 +7,7 @@ namespace Tesseract
     /// <summary>
     /// Represents the possible page layou analysis modes.
     /// </summary>
-    public enum PageSegMode : int
-    {
+    public enum PageSegMode {
         /// <summary>
         /// Orientation and script detection (OSD) only.
         /// </summary>
@@ -71,14 +70,14 @@ namespace Tesseract
         /// Sparse text with orientation and script detection.
         /// </summary>
         SparseTextOsd = 12,
-        
+
         /// <summary>
         /// Treat the image as a single text line, bypassing hacks that are
         /// specific to Tesseract.
         /// </summary>
         RawLine = 13,
 
-        /// <summary>        
+        /// <summary>
         /// Number of enum entries.
         /// </summary>
         Count

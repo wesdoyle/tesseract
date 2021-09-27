@@ -1,9 +1,7 @@
 ﻿using System;
 
-namespace Tesseract
-{
-    public interface IResultRenderer : IDisposable
-    {
+namespace Tesseract {
+    public interface IResultRenderer : IDisposable {
         /// <summary>
         /// Begins a new document with the specified <paramref name="title"/>.
         /// </summary>

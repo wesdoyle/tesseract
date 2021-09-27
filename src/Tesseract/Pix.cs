@@ -64,14 +64,14 @@ namespace Tesseract
             if (handle == IntPtr.Zero) throw new ArgumentNullException("handle");
 
             this.handle = new HandleRef(this, handle);
-            this.width = Interop.LeptonicaApi.Native.pixGetWidth(this.handle);
-            this.height = Interop.LeptonicaApi.Native.pixGetHeight(this.handle);
-            this.depth = Interop.LeptonicaApi.Native.pixGetDepth(this.handle);
+            width = Interop.LeptonicaApi.Native.pixGetWidth(this.handle);
+            height = Interop.LeptonicaApi.Native.pixGetHeight(this.handle);
+            depth = Interop.LeptonicaApi.Native.pixGetDepth(this.handle);
 
             var colorMapHandle = Interop.LeptonicaApi.Native.pixGetColormap(this.handle);
             if (colorMapHandle != IntPtr.Zero)
             {
-                this.colormap = new PixColormap(colorMapHandle);
+                colormap = new PixColormap(colorMapHandle);
             }
         }
 
@@ -101,7 +101,7 @@ namespace Tesseract
             var pixHandle = Interop.LeptonicaApi.Native.pixRead(filename);
             if (pixHandle == IntPtr.Zero)
             {
-                throw new IOException(String.Format("Failed to load image '{0}'.", filename));
+                throw new IOException(string.Format("Failed to load image '{0}'.", filename));
             }
             return Create(pixHandle);
         }
@@ -177,14 +177,14 @@ namespace Tesseract
 
         public int XRes
         {
-            get { return Interop.LeptonicaApi.Native.pixGetXRes(this.handle); }
-            set { Interop.LeptonicaApi.Native.pixSetXRes(this.handle, value); }
+            get { return Interop.LeptonicaApi.Native.pixGetXRes(handle); }
+            set { Interop.LeptonicaApi.Native.pixSetXRes(handle, value); }
         }
 
         public int YRes
         {
-            get { return Interop.LeptonicaApi.Native.pixGetYRes(this.handle); }
-            set { Interop.LeptonicaApi.Native.pixSetYRes(this.handle, value); }
+            get { return Interop.LeptonicaApi.Native.pixGetYRes(handle); }
+            set { Interop.LeptonicaApi.Native.pixSetYRes(handle, value); }
         }
 
         internal HandleRef Handle
@@ -253,7 +253,7 @@ namespace Tesseract
 
             if (Interop.LeptonicaApi.Native.pixWrite(filename, handle, actualFormat) != 0)
             {
-                throw new IOException(String.Format("Failed to save image '{0}'.", filename));
+                throw new IOException(string.Format("Failed to save image '{0}'.", filename));
             }
         }
 
@@ -452,7 +452,7 @@ namespace Tesseract
         }
 
         /// <summary>
-        /// Removes horizontal lines from a grayscale image. 
+        /// Removes horizontal lines from a grayscale image.
         /// The algorithm is based on Leptonica <code>lineremoval.c</code> example.
         /// See <a href="http://www.leptonica.com/line-removal.html">line-removal</a>.
         /// </summary>
@@ -507,7 +507,7 @@ namespace Tesseract
             }
             finally
             {
-                // destroy any created intermediate pix's, regardless of if the process 
+                // destroy any created intermediate pix's, regardless of if the process
                 // failed for any reason.
                 if (pix1 != IntPtr.Zero)
                 {
@@ -714,10 +714,10 @@ namespace Tesseract
         /// <returns>The image rotated around it's centre.</returns>
         public Pix Rotate(float angleInRadians, RotationMethod method = RotationMethod.AreaMap, RotationFill fillColor = RotationFill.White, int? width = null, int? height = null)
         {
-            if (width == null) width = this.Width;
-            if (height == null) height = this.Height;
+            if (width == null) width = Width;
+            if (height == null) height = Height;
 
-            if (Math.Abs(angleInRadians) < VerySmallAngle) return this.Clone();
+            if (Math.Abs(angleInRadians) < VerySmallAngle) return Clone();
 
             IntPtr resultHandle;
 
@@ -760,7 +760,7 @@ namespace Tesseract
 
 
         /// <summary>
-        /// Scales the current pix by the specified <paramref name="scaleX"/> and <paramref name="scaleY"/> factors returning a new <see cref="Pix"/> of the same depth. 
+        /// Scales the current pix by the specified <paramref name="scaleX"/> and <paramref name="scaleY"/> factors returning a new <see cref="Pix"/> of the same depth.
         /// </summary>
         /// <param name="scaleX"></param>
         /// <param name="scaleY"></param>
@@ -892,7 +892,7 @@ namespace Tesseract
         {
             var tmpHandle = handle.Handle;
             Interop.LeptonicaApi.Native.pixDestroy(ref tmpHandle);
-            this.handle = new HandleRef(this, IntPtr.Zero);
+            handle = new HandleRef(this, IntPtr.Zero);
         }
 
         #endregion Disposal

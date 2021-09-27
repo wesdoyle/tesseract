@@ -7,7 +7,7 @@ namespace Tesseract
 {
     public static class TesseractDrawingExtensions
     {
-        
+
         /// <summary>
         /// Process the specified bitmap image.
         /// </summary>
@@ -94,7 +94,7 @@ namespace Tesseract
         /// </summary>
         /// <param name="bitmap"></param>
         /// <returns></returns>
-        public static int GetBPP(this System.Drawing.Bitmap bitmap)
+        public static int GetBPP(this Bitmap bitmap)
         {
             switch (bitmap.PixelFormat)
             {
@@ -112,7 +112,7 @@ namespace Tesseract
                 case System.Drawing.Imaging.PixelFormat.Format48bppRgb: return 48;
                 case System.Drawing.Imaging.PixelFormat.Format64bppArgb:
                 case System.Drawing.Imaging.PixelFormat.Format64bppPArgb: return 64;
-                default: throw new ArgumentException(String.Format("The bitmap's pixel format of {0} was not recognised.", bitmap.PixelFormat), "bitmap");
+                default: throw new ArgumentException(string.Format("The bitmap's pixel format of {0} was not recognised.", bitmap.PixelFormat), "bitmap");
             }
         }
     }

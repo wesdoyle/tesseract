@@ -249,7 +249,7 @@ namespace Tesseract
                 // release the pointer first before throwing an error.
                 Marshal.FreeHGlobal(titlePtr);
 
-                throw new InvalidOperationException(String.Format("Failed to begin document \"{0}\".", title));
+                throw new InvalidOperationException(string.Format("Failed to begin document \"{0}\".", title));
             }
 
             _currentDocumentHandle = new EndDocumentOnDispose(this, titlePtr);

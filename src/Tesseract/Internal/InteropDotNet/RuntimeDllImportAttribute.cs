@@ -16,7 +16,7 @@ namespace InteropDotNet
 
         public CharSet CharSet;
 
-        public bool SetLastError;        
+        public bool SetLastError;
 
         public bool BestFitMapping;
 

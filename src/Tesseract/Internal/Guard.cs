@@ -7,7 +7,7 @@ namespace Tesseract.Internal
 	static class Guard
 	{
 		// Generic pre-condition checks
-		
+
 		/// <summary>
 		/// Ensures the given <paramref name="condition"/> is true.
 		/// </summary>
@@ -47,19 +47,19 @@ namespace Tesseract.Internal
 		public static void Require(string paramName, bool condition, string message, params object[] args)
 		{
 			if (!condition)
-				throw new ArgumentException(String.Format(message, args), paramName);
+				throw new ArgumentException(string.Format(message, args), paramName);
 		}
-		
-		
-		
+
+
+
 		[DebuggerHidden]
 		public static void RequireNotNull(string argName, object value)
 		{
 			if (value == null) {
-				throw new ArgumentException(String.Format("Argument \"{0}\" must not be null.", value));
+				throw new ArgumentException(string.Format("Argument \"{0}\" must not be null.", value));
 			}
 		}
-		
+
 		/// <summary>
 		/// Ensures the given <paramref name="value"/> is not null or empty.
 		/// </summary>
@@ -72,7 +72,7 @@ namespace Tesseract.Internal
 			RequireNotNull(paramName, value);
 			if (value.Length == 0) {
 				throw new ArgumentException(paramName,
-					String.Format(@"The argument ""{0}"" must not be null or empty.", paramName));
+					string.Format(@"The argument ""{0}"" must not be null or empty.", paramName));
 			}
 		}
 
@@ -86,7 +86,7 @@ namespace Tesseract.Internal
 		public static void Verify(bool condition, string message, params object[] args)
 		{
 			if(!condition) {
-				throw new InvalidOperationException(String.Format(message, args));
+				throw new InvalidOperationException(string.Format(message, args));
 			}
 		}
 	}

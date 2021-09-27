@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Tesseract
-{
-    public enum ImageFormat : int
-    {
+﻿namespace Tesseract {
+    public enum ImageFormat {
         Unknown = 0,
         Bmp = 1,
         JfifJpeg = 2,

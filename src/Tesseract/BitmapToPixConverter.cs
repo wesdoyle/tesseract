@@ -23,7 +23,7 @@ namespace Tesseract
         public Pix Convert(Bitmap img)
         {
             var pixDepth = GetPixDepth(img.PixelFormat);
-            var pix = Pix.Create(img.Width, img.Height, pixDepth);            
+            var pix = Pix.Create(img.Width, img.Height, pixDepth);
             pix.XRes = (int) Math.Round(img.HorizontalResolution);
             pix.YRes = (int) Math.Round(img.VerticalResolution);
 
@@ -70,7 +70,7 @@ namespace Tesseract
             try {
                 for (int i = 0; i < imgPaletteEntries.Length; i++) {
                     if (!pixColormap.AddColor(imgPaletteEntries[i].ToPixColor())) {
-                        throw new InvalidOperationException(String.Format("Failed to add colormap entry {0}.", i));
+                        throw new InvalidOperationException(string.Format("Failed to add colormap entry {0}.", i));
                     }
                 }
                 pix.Colormap = pixColormap;
@@ -95,7 +95,7 @@ namespace Tesseract
                     return 32;
 
                 default:
-                    throw new InvalidOperationException(String.Format("Source bitmap's pixel format {0} is not supported.", pixelFormat));
+                    throw new InvalidOperationException(string.Format("Source bitmap's pixel format {0} is not supported.", pixelFormat));
             }
         }
 

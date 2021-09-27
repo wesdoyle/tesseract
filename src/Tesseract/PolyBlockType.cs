@@ -4,8 +4,7 @@ using System.Text;
 
 namespace Tesseract
 {
-    public enum PolyBlockType : int
-    {
+    public enum PolyBlockType {
         /// <summary>
         /// The type is not known yet, keep as first element.
         /// </summary>
@@ -45,7 +44,7 @@ namespace Tesseract
         /// <summary>
         /// Image that lives inside a column.
         /// </summary>
-        FlowingImage, 
+        FlowingImage,
         /// <summary>
         /// Image that spans more than one column.
         /// </summary>
@@ -54,7 +53,7 @@ namespace Tesseract
         /// Image that is in a cross-column pull-out region.
         /// </summary>
         PullOutImage,
-        HorizontalLine, 
+        HorizontalLine,
         VerticalLine,
         /// <summary>
         /// Lies outside any column.

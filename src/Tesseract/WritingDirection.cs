@@ -13,13 +13,13 @@ namespace Tesseract
     	/// <summary>
     	/// The text line from the left hand side to the right hand side when the page is rotated so it's orientation is <see cref="Orientation.PageUp" />.
     	/// </summary>
-        LeftToRight, 
-        
+        LeftToRight,
+
     	/// <summary>
     	/// The text line from the right hand side to the left hand side when the page is rotated so it's orientation is <see cref="Orientation.PageUp" />.
     	/// </summary>
-        RightToLeft, 
-        
+        RightToLeft,
+
     	/// <summary>
     	/// The text line from the top to the bottom of the page when the page is rotated so it's orientation is <see cref="Orientation.PageUp" />.
     	/// </summary>

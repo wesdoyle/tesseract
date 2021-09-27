@@ -19,7 +19,7 @@ namespace InteropDotNet
             this.logic = logic;
         }
 
-        private readonly object syncLock = new object();        
+        private readonly object syncLock = new object();
         private readonly Dictionary<string, IntPtr> loadedAssemblies = new Dictionary<string, IntPtr>();
         private string customSearchPath;
 
@@ -38,9 +38,9 @@ namespace InteropDotNet
                 {
                     if (platformName == null)
                         platformName = SystemManager.GetPlatformName();
-                    
+
                     Logger.TraceInformation("Current platform: " + platformName);
-                                        
+
                     IntPtr dllHandle = CheckCustomSearchPath(fileName, platformName);
                     if (dllHandle == IntPtr.Zero)
                         dllHandle = CheckExecutingAssemblyDomain(fileName, platformName);
@@ -64,7 +64,7 @@ namespace InteropDotNet
         private IntPtr CheckCustomSearchPath(string fileName, string platformName)
         {
             var baseDirectory = CustomSearchPath;
-            if (!String.IsNullOrEmpty(baseDirectory)) {
+            if (!string.IsNullOrEmpty(baseDirectory)) {
                 Logger.TraceInformation("Checking custom search location '{0}' for '{1}' on platform {2}.", baseDirectory, fileName, platformName);
                 return InternalLoadLibrary(baseDirectory, platformName, fileName);
             } else {
@@ -151,7 +151,7 @@ namespace InteropDotNet
             IntPtr procAddress = logic.GetProcAddress(dllHandle, name);
             if(procAddress == IntPtr.Zero)
             {
-                throw new LoadLibraryException(String.Format("Failed to load proc {0}", name));
+                throw new LoadLibraryException(string.Format("Failed to load proc {0}", name));
             }
 
             return procAddress;

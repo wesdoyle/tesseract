@@ -6,8 +6,7 @@ namespace Tesseract
 	/// <summary>
 	/// What colour pixels should be used for the outside?
 	/// </summary>
-	public enum RotationFill : int
-	{
+	public enum RotationFill {
 		/// <summary>
 		/// Bring in white pixels from the outside.
 		/// </summary>

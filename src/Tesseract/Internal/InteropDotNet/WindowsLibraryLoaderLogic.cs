@@ -65,7 +65,7 @@ namespace InteropDotNet
                 }
                 else
                 {
-                    throw new Tesseract.LoadLibraryException(String.Format(
+                    throw new Tesseract.LoadLibraryException(string.Format(
                         "Failed to load native function \"{0}\" from library with handle  {1}.",
                         functionName, libraryHandle));
 
@@ -76,14 +76,14 @@ namespace InteropDotNet
             {
                 var lastError = WindowsGetLastError();
                 throw new Tesseract.LoadLibraryException(
-                    String.Format("Failed to load native function \"{0}\" from library with handle  {1}.\r\nLast Error:{1}\r\nCheck inner exception and\\or windows event log.\r\nInner Exception: {2}", functionName, libraryHandle, lastError, e.ToString()),
+                    string.Format("Failed to load native function \"{0}\" from library with handle  {1}.\r\nLast Error:{1}\r\nCheck inner exception and\\or windows event log.\r\nInner Exception: {2}", functionName, libraryHandle, lastError, e.ToString()),
                     e);
             }
         }
 
         public string FixUpLibraryName(string fileName)
         {
-            if (!String.IsNullOrEmpty(fileName) && !fileName.EndsWith(".dll", StringComparison.OrdinalIgnoreCase))
+            if (!string.IsNullOrEmpty(fileName) && !fileName.EndsWith(".dll", StringComparison.OrdinalIgnoreCase))
                 return fileName + ".dll";
             return fileName;
         }
